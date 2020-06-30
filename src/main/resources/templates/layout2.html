@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      class="grey darken-3"
+>
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta charset="UTF-8"/>
+    <title>Keys'D</title>
+
+</head>
+<body>
+<!--          NAV BAR           -->
+<header id="accueil" class="scrollspy">
+    <div class ="navbar-fixed" style="margin-bottom: 5px">
+     <nav>
+        <div class="nav-wrapper white">
+            <div>
+            <a href="/index" class="brand-logo black-text" style="margin-left: 15px"><img src="/image/Keys'S2.png" style="width: 100px; padding-top: 10px"> </a>
+            </div>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down black-text">
+                <li><a href="/index#accueil" class="black-text scrollspy">Accueil</a></li>
+                <li><a href="/annonce" class="black-text">Toutes les offres</a></li>
+                <li><a href="/admin/formAnnonce" class ="black-text">Ajouter une annonce</a></li>
+                <li><a href="/admin/user" class ="black-text">all users</a></li>
+                <li><a href="/form" class ="black-text">Crée un compte</a></li>
+                <li><a href="/index#contact" class ="black-text">A propos</a></li>
+                <li><a href="/index#contacte" class ="black-text">Contact</a></li>
+                <li><a class="dropdown-trigger black-text" href="#!" data-target="dropdown1">[[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="#connexion" class="waves-effect waves-light btn modal-trigger white-text" style="background-color: #5e17eb">Connexion</a></li>
+                <div class="row modal" id="connexion" style="background-color: rgba(0,0,0,0.71);">
+                    <div class ="container">
+                    <div class = "panel panel-primary">
+                        <div style="text-align: center" class="white-text">Connexion<i class="material-icons white-text modal-close right">close</i></div>
+                        <form th:action="@{/login}" method="post">
+                            <div class="input-field transparent">
+                                <i class="material-icons prefix white-text">person</i>
+                                <label for="person">Identifiant</label>
+                                <input id="person" type="text" name="username" class="white-text"/>
+                            </div>
+                            <div class="input-field transparent">
+                                <i class="material-icons prefix white-text">lock</i>
+                                <label for="lock">Mot de passe</label>
+                                <input id="lock" type="password" name="password" class="white-text"/>
+                            </div>
+                            <button type="submit" class="waves-effect waves-light btn right" style="background-color: #5e17eb">Connexion</button>
+                            <br><br>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                <div class="container">
+                    <div class="row modal" id="logout" style="background-color: rgba(0,0,0,0.71);">
+                    <h4 class="center white-text">Voulez vous vous deconnecter ?<i class="material-icons white-text modal-close right">close</i></h4>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="waves-effect waves-light btn right" style="background-color: #5e17eb;">Deconnexion</button>
+                    </form>
+                </div>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    </div>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="/index">Accueil</a></li>
+        <li><a href="/annonce">Toutes les offres</a></li>
+        <li><a href="/admin/formAnnonce">Ajouter une annonce</a></li>
+        <li><a href="/login">Connexion</a></li>
+        <li><a class="dropdown-trigger black-text" href="#!" data-target="dropdown2">[[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="/admin/user">all users</a></li>
+        <li><a href="/form">Crée un compte</a></li>
+    </ul>
+
+<!--     Dropdown account-->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/user/fav" class="black-text">Liste Favoris</a></li>
+        <li><a href="#logout" th:inline="text" class = "red-text modal-trigger">Logout</a></li>
+    </ul>
+    <ul id="dropdown2" class="dropdown-content">
+        <li><a href="/user/fav" class="black-text">Liste Favoris</a></li>
+        <li><a href="#logout" th:inline="text" class = "red-text modal-trigger">Logout</a></li>
+    </ul>
+</header>
+
+<section layout:fragment="content">
+</section>
+
+<!--         FOOTER          -->
+<footer class="page-footer grey darken-3">
+    <section class="section container scrollspy" id="contacte" style="padding-top: 100px; padding-bottom: 100px">
+        <div class="row">
+            <div class="col s12 l5">
+                <h2>Nous contacter :</h2>
+                <p>Comme verts mes comme ces nul fut. Et ah te avons rente rouge je. Il ainsi il cause oh croix utile or.
+                    Jeunesse poitrine en epanouir la reparler la. Jet noble force par arret ras voila votre peu. Les ete
+                    appareil supplice vit epandent. Collines dissiper cavalier octogone la magasins ca.</p>
+                <p>Comme verts mes comme ces nul fut. Et ah te avons rente rouge je. Il ainsi il cause oh croix utile or.
+                    Jeunesse poitrine en epanouir la reparler la. Jet noble force par arret ras voila votre peu. Les ete
+                    appareil supplice vit epandent. Collines dissiper cavalier octogone la magasins ca.</p>
+            </div>
+            <div class="col s12 l5 offset-l2">
+                <br><br><br><br>
+                <form action="">
+                    <div class="input-field">
+                        <i class="material-icons prefix">email</i>
+                        <input type="email" id="email">
+                        <label for="email">Votre email</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">message</i>
+                        <textarea id="message" class="materialize-textarea"></textarea>
+                        <label for="message">Votre message</label>
+                    </div>
+                    <p style="text-align: center">Not ready :( !</p>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="footer-copyright grey darken-4">
+        <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+        $('.parallax').parallax();
+        $('select').formSelect();
+        $('.scrollspy').scrollSpy();
+        $('.modal').modal();
+        $('.materialboxed').materialbox();
+        $(".dropdown-trigger").dropdown();
+    });
+</script>
+</body>
+</html>

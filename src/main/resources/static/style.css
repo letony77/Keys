@@ -1,0 +1,23 @@
+i.icon-black{
+    color:black;
+}
+
+h3, h4{
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #004aad;
+}
+
+p, h5, a, th, td{
+    font-family: 'Open Sans', sans-serif;
+}
+h2{
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #222222;
+}
+
+
+
+.btn{
+    background-color: #5e17eb;
+}
+

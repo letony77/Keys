@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout2"><head>
+
+    <meta charset="UTF-8"/>
+    <title>Modification Annonce</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+<h3 class="center white-text" style="padding-top: 30px; padding-bottom: 30px;">Editer une annonce</h3>
+    <div class="white" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="container">
+    <div class = "panel panel-default">
+        <div class ="panel-body">
+            <form th:action="@{/admin/saveAnnonceE}" method="post">
+                <div class="input-field">
+                    <label for="id">Id</label>
+                    <input id="id"class = "materialize-textarea" type="text" name="id" th:value="${annonce.id}"/>
+                </div>
+                <div class="input-field">
+                    <label for="titre">Modifier le Titre</label>
+                    <input id="titre" class = "materialize-textarea" type="text" name="title" th:value="${annonce.title}"/>
+                </div>
+                <div class="input-field">
+                    <label for="entreprise">Modifier le nom de l'entreprise</label>
+                    <input id="entreprise" class = "materialize-textarea" type="text" name="entreprise" th:value="${annonce.entreprise}"/>
+                </div>
+
+                <div class="input-field">
+                    <label for="description">Modifier la description de l'annonce</label>
+                    <input id="description" class = "materialize-textarea" type="text" name="description" th:value="${annonce.description}"/>
+                </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Editer</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

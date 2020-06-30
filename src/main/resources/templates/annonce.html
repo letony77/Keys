@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout2">
+<head>
+
+    <meta charset="UTF-8"/>
+    <title>Toute les annonces</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="center white-text" style="padding-top: 30px; padding-bottom: 30px;">Toute les Offres</h3>
+    <div class="white" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="container">
+        <form method="get" th:action="@{annonce}">
+            <label> Recherche par titre</label>
+            <input name="mc" th:value="${mc}" type="text">
+            <button class="btn btn-primary"> recherche</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <table border="1" class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>title</th>
+                <th>entreprise</th>
+                <th>description</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="p:${listAnnonces}">
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.title}"></td>
+                <td th:text="${p.entreprise}"></td>
+                <td th:text="${p.description}"></td>
+                <td><a th:href="@{/admin/editA(id=${p.id})}">Edit</a></td>
+                <td><a onclick="return confirm('Etes vous sure ?')"
+                       th:href="@{/user/deleteA(id=${p.id}, page=${pageCourante}, size=${size},motCle=${mc})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <ul class="pagination">
+            <li th:class="${pageCourante} == ${status.index} ? 'active' : ''" th:each="pa,status:${pages}">
+                <a th:href="@{annonce(page=${status.index},size=${size})}" th:text="${status.index}"></a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="row container">
+        <div class="card col s12 m6 l6 z-depth-3" th:each="p:${listAnnonces}">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator"
+                     src="https://alliance-sciences-societe.fr/wp-content/uploads/2019/02/5-770x496.jpg">
+            </div>
+            <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4" th:text="${p.title}">
+            <i class="material-icons right">apps</i></span>
+                <p th:text="${p.entreprise}"></p>
+            </div>
+            <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4" th:text="${p.title}">
+                </span>
+                <p th:text="${p.description}"></p>
+                <p class="grey-text text-lighten-1" style="text-align: right">date de publication:</p>
+                <p class="grey-text text-lighten-1" style="text-align: right;" th:text="${p.getCreated_date()}"></p>
+                <div class="card-action">
+                <a th:href="${'/user/addfav/' + p.id}" class="waves-effect waves-light btn" style="background-color: #5e17eb"> Ajouter aux favoris</a>
+                <a th:href="${'/user/addfav/' + p.id}" class="waves-effect waves-light btn disabled" style="background-color: #5e17eb"> Contacter</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+</html>

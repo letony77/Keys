@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout2">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link th:href="@{style.css}" rel="stylesheet"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta charset="UTF-8"/>
+    <title>Users</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h3 class="center white-text" style="padding-top: 30px; padding-bottom: 30px;">Connexion</h3>
+    <div class="white">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 l5">
+                    <h3>Connectez vous !</h3>
+                    <p>Cette page nécéssite des droits d'accés</p>
+                </div>
+                <div class="col s12 l5 offset-l2">
+                        <form th:action="@{/login}" method="post" style="padding-top: 50px; padding-bottom: 50px;">
+                            <div class="input-field transparent">
+                                <i class="material-icons prefix">person</i>
+                                <label for="person">Identifiant</label>
+                                <input id="person" type="text" name="username" class="black-text"/>
+                            </div>
+                            <div class="input-field transparent">
+                                <i class="material-icons prefix">lock</i>
+                                <label for="lock">Mot de passe</label>
+                                <input id="lock" type="password" name="password" class="black-text"/>
+                            </div>
+                            <button type="submit" class="waves-effect waves-light btn right" style="background-color: #5e17eb">Connexion</button>
+                            <br><br>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

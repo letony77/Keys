@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html layout:decorator="layout2"
+      xmlns:layout="://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Crée une annonce</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h3 class="center white-text" style="padding-top: 30px; padding-bottom: 30px;">Liste des Favoris</h3>
+    <div class="white" style="padding-top: 50px; padding-bottom: 50px;">
+        <div class="container">
+                    <table border="1" class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre</th>
+                            <th>Entreprise</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${session.cart}">
+                            <td th:text="${item.annonce.id}"></td>
+                            <td th:text="${item.annonce.title}"></td>
+                            <td th:text="${item.annonce.entreprise}"></td>
+                            <td th:text="${item.annonce.description}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
