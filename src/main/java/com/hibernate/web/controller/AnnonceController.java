@@ -1,23 +1,31 @@
 package com.hibernate.web.controller;
 
 import com.hibernate.web.dao.AnnonceRepository;
+import com.hibernate.web.dao.CategoryRepository;
+import com.hibernate.web.dao.CityRepository;
 import com.hibernate.web.dao.UserRepository;
-import com.hibernate.web.entities.Annonce;
-import com.hibernate.web.entities.Item;
-import com.hibernate.web.entities.User;
+import com.hibernate.web.entities.*;
 import com.hibernate.web.service.Service;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import sun.java2d.pipe.SpanShapeRenderer;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +39,14 @@ public class AnnonceController {
     Service service;
 @Autowired
     UserRepository userRepository;
+@Autowired
+    CategoryRepository categoryRepository;
+@Autowired
+    CityRepository cityRepository;
+@Autowired
+    JavaMailSender emailSender;
 
+    City city = new City("Logne");
     @RequestMapping(value = "/annonce")
     public String annonce(Model model
             , @RequestParam(name = "page", defaultValue = "0") int p
@@ -49,27 +64,30 @@ public class AnnonceController {
         return "annonce";
     }
 
-    @RequestMapping(value="/admin/formAnnonce", method= RequestMethod.GET)
+    @RequestMapping(value="/corp/formAnnonce", method= RequestMethod.GET)
     public String form(Model model){
         model.addAttribute("annonce",new Annonce());
         return "formAnnonce";
     }
 
-    @RequestMapping(value="/admin/editA", method=RequestMethod.GET)
+    @RequestMapping(value="/corp/editA", method=RequestMethod.GET)
     public String edit(Model model, Long id){
         Annonce p = annonceRepository.getOne(id);
         model.addAttribute("annonce",p);
         return "editAnnonce";
     }
 
-    @RequestMapping(value="/admin/saveAnnonce", method=RequestMethod.POST)
-    public String save(Model model, Annonce annonce){
-        annonce = new Annonce(annonce.getTitle(), annonce.getEntreprise(), annonce.getDescription());
+/*    @RequestMapping(value="/corp/saveAnnonce", method=RequestMethod.POST)
+    public String save(Model model, Annonce annonce, @RequestParam(name = "annonce.category", required = false) String categoryname, @RequestParam(name = "annonce.city", required = false) String cityname, Category category, City city){
+        category = new Category(categoryname);
+        city = new City(cityname);
+
+        annonce = new Annonce(annonce.getTitle(), annonce.getEntreprise(), annonce.getDescription(), category, city);
         annonceRepository.save(annonce);
         return "confirmationA";
-    }
+    }*/
 
-    @RequestMapping(value="/admin/saveAnnonceE", method=RequestMethod.POST)
+    @RequestMapping(value="/corp/saveAnnonceE", method=RequestMethod.POST)
     public String saveE(Annonce annonce){
         annonceRepository.save(annonce);
         return "confirmationA";
@@ -109,17 +127,13 @@ public class AnnonceController {
 
 
     @RequestMapping(value = "/addAnnounceToUser", method=RequestMethod.POST)
-    String addAnnounceToUser(Annonce annonce) {
+    public String addAnnounceToUser(Annonce annonce, @RequestParam(name="annonce.city", required = false) String cityName, @RequestParam(name="annonce.category", required = false) String categoryName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        //Long test = user.getId();
         String getName = authentication.getName();
-
         Optional user = userRepository.findByUserName(getName);
         Optional<User> test = userRepository.findByUserName(getName);
         User test2 = test.get();
         Long idUser = test2.getId();
-        System.out.println(idUser);
         service.addAnnounceToUser(annonce, idUser);
         return "confirmationA";
     }
@@ -135,6 +149,41 @@ public class AnnonceController {
         List<Annonce> annonces = service.getAnnoncesByUser(idUser);
         model.addAttribute("annonce", annonces);
         return "profil";
+    }
+
+    @RequestMapping(value = "/sendEmail", method=RequestMethod.POST)
+    public String sendSimpleEmail(@RequestParam(name="destinataire", required = false) String destinataire, @RequestParam(name="body", required = false) String body) {
+        // Create a Simple MailMessage.
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(destinataire);
+        message.setSubject("from Key'S");
+        message.setText(body);
+
+        // Send Message!
+        this.emailSender.send(message);
+
+        return "mailConfirm";
+    }
+    @RequestMapping(value = "/sendEmailPJ", method=RequestMethod.POST)
+    public String sendSimpleEmailPJ(Model model, @RequestParam(name="destinataire", required = false) String destinataire, @RequestParam(name="body", required = false) String body, @RequestParam(name="file", required = false) String file) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+
+        boolean multipart = true;
+
+        MimeMessageHelper helper = new MimeMessageHelper(message, multipart);
+
+        helper.setTo(destinataire);
+        helper.setSubject("Contact Stagiaire");
+
+        helper.setText(body);
+
+        // Attachment 1
+        FileSystemResource file1 = new FileSystemResource(new File(file));
+        helper.addAttachment(file, file1);
+
+        emailSender.send(message);
+
+        return "mailConfirm";
     }
 }
 

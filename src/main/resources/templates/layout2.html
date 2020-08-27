@@ -28,7 +28,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down black-text">
                 <li><a href="/index#accueil" class="black-text scrollspy">Accueil</a></li>
                 <li><a href="/annonce" class="black-text">Toutes les offres</a></li>
-                <li><a href="/admin/formAnnonce" class ="black-text">Ajouter une annonce</a></li>
+                <li><a href="/corp/formAnnonce" class ="black-text">Ajouter une annonce</a></li>
                 <li><a href="/admin/user" class ="black-text">all users</a></li>
                 <li><a href="/form" class ="black-text">Crée un compte</a></li>
                 <li><a href="/index#contact" class ="black-text">A propos</a></li>
@@ -71,7 +71,7 @@
     <ul class="sidenav" id="mobile-demo">
         <li><a href="/index">Accueil</a></li>
         <li><a href="/annonce">Toutes les offres</a></li>
-        <li><a href="/admin/formAnnonce">Ajouter une annonce</a></li>
+        <li><a href="/corp/formAnnonce">Ajouter une annonce</a></li>
         <li><a href="/login">Connexion</a></li>
         <li><a class="dropdown-trigger black-text" href="#!" data-target="dropdown2">[[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a href="/admin/user">all users</a></li>
@@ -81,6 +81,7 @@
 <!--     Dropdown account-->
     <ul id="dropdown1" class="dropdown-content">
         <li><a href="/user/fav" class="black-text">Liste Favoris</a></li>
+        <li><a href="/profil" class="black-text">Liste d'ajout</a></li>
         <li><a href="#logout" th:inline="text" class = "red-text modal-trigger">Logout</a></li>
     </ul>
     <ul id="dropdown2" class="dropdown-content">

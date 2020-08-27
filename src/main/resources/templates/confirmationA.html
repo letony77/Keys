@@ -37,6 +37,18 @@
                         <label>Description:</label>
                         <label th:text="${annonce.description}"></label>
                     </div>
+                    <div class="form-group">
+                        <label>Categorie:</label>
+                        <label th:text="${annonce.category.name_category}"></label>
+                    </div>
+                    <div class="form-group">
+                        <label>Ville:</label>
+                        <label th:text="${annonce.city.name_city}"></label>
+                    </div>
+                    <div class="form-group">
+                        <label>eMail de Contact:</label>
+                        <label th:text="${annonce.email_contact}"></label>
+                    </div>
                 </div>
             </div>
         </div>

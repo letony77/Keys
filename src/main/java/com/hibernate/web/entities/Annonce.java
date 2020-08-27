@@ -3,10 +3,11 @@ package com.hibernate.web.entities;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Annonce {
+public class Annonce implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
@@ -15,17 +16,41 @@ public class Annonce {
     private Date created_date;
     private String entreprise;
     private String description;
-
+    private String email_contact;
     @ManyToOne
-  //  @JsonIgnore
     private User user;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_CATEGORY")
+    private Category category;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_CITY")
+    private City city;
 
-    public Annonce(String title, String entreprise, String description) {
+    public Annonce(String title, String entreprise, String description, Category category, City city, String email_contact) {
         this.title = title;
         this.entreprise = entreprise;
         this.description = description;
+        this.category = category;
+        this.city = city;
+        this.email_contact = email_contact;
     }
     public Annonce(){
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public User getUser() {
@@ -73,5 +98,13 @@ public class Annonce {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEmail_contact() {
+        return email_contact;
+    }
+
+    public void setEmail_contact(String email_contact) {
+        this.email_contact = email_contact;
     }
 }

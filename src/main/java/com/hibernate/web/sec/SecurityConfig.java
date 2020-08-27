@@ -36,10 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/user/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/CORP/*").hasAnyRole("CORP", "ADMIN")
+                .antMatchers("/user/*").hasAnyRole("USER", "ADMIN", "CORP")
                 .antMatchers("/").permitAll()
                 .antMatchers("/admin/image/*").permitAll()
                 .antMatchers("/user/image/*").permitAll()
+                .antMatchers("/corp/image/*").permitAll()
 
                 .and().exceptionHandling().accessDeniedPage(("/403"))
                 .and().formLogin().loginPage("/login")

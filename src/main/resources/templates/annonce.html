@@ -28,6 +28,8 @@
                 <th>title</th>
                 <th>entreprise</th>
                 <th>description</th>
+                <th>Categorie</th>
+                <th>Ville</th>
             </tr>
             </thead>
 
@@ -37,7 +39,10 @@
                 <td th:text="${p.title}"></td>
                 <td th:text="${p.entreprise}"></td>
                 <td th:text="${p.description}"></td>
-                <td><a th:href="@{/admin/editA(id=${p.id})}">Edit</a></td>
+                <td th:text="${p.category.name_category}"></td>
+                <td th:text="${p.city.name_city}"></td>
+
+                <td><a th:href="@{/corp/editA(id=${p.id})}">Edit</a></td>
                 <td><a onclick="return confirm('Etes vous sure ?')"
                        th:href="@{/user/deleteA(id=${p.id}, page=${pageCourante}, size=${size},motCle=${mc})}">Delete</a></td>
             </tr>
@@ -72,8 +77,39 @@
                 <p class="grey-text text-lighten-1" style="text-align: right;" th:text="${p.getCreated_date()}"></p>
                 <div class="card-action">
                 <a th:href="${'/user/addfav/' + p.id}" class="waves-effect waves-light btn" style="background-color: #5e17eb"> Ajouter aux favoris</a>
-                <a th:href="${'/user/addfav/' + p.id}" class="waves-effect waves-light btn disabled" style="background-color: #5e17eb"> Contacter</a>
-
+                <a th:href="'#contact_corp' + ${p.id}" href="#contact_corp" class="waves-effect waves-light btn modal-trigger" style="background-color: #5e17eb"> Contacter</a>
+                </div>
+            </div>
+            <div class="modal" th:id="contact_corp + ${p.id}" style="background-color: rgba(0,0,0,0.71);">
+                <div class ="container">
+                    <div class = "panel panel-primary center">
+                        <div class ="panel-heading white-text" style="text-align: center">Connexion<i class="material-icons white-text modal-close right">close</i></div>
+                        <div class ="panel-body">
+                            <form th:action="@{/sendEmail}" method="post">
+                                <div class="input-field transparent">
+                                    <i class="material-icons prefix white-text">person</i>
+                                    <label for="person">Identifiant</label>
+                                    <input id="person" type="text" name="destinataire" class="white-text" th:value="${p.email_contact}"/>
+                                </div>
+                                <div class="input-field transparent">
+                                    <i class="material-icons prefix white-text">mode_edit</i>
+                                    <label for="lock">Message</label>
+                                    <textarea id="lock" type="text" name="body" class="white-text"></textarea>
+                                </div>
+<!--                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file" name="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>-->
+                                <button type="submit" class="waves-effect waves-light btn right" style="background-color: #5e17eb">Connexion</button>
+                                <br><br>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

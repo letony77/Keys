@@ -14,7 +14,7 @@
     <div class="container">
     <div class = "panel panel-default">
         <div class ="panel-body">
-            <form th:action="@{/admin/saveAnnonceE}" method="post">
+            <form th:action="@{/corp/saveAnnonceE}" method="post">
                 <div class="input-field">
                     <label for="id">Id</label>
                     <input id="id"class = "materialize-textarea" type="text" name="id" th:value="${annonce.id}"/>
@@ -32,8 +32,32 @@
                     <label for="description">Modifier la description de l'annonce</label>
                     <input id="description" class = "materialize-textarea" type="text" name="description" th:value="${annonce.description}"/>
                 </div>
-
-            <div>
+                <!--                    <div class="form-group">
+                                        <label class = "control-label">Category</label>
+                                        <input class = "form-control" type="text" name="category" th:value="${annonce.category}"/>
+                                    </div>-->
+                <div class = "form-group">
+                    <select name="category">
+                        <option value="" disabled selected>Choisissez la Categorie</option>
+                        <option value="1">Informatique</option>
+                        <option value="2">Vente</option>
+                        <option value="3">Restauration</option>
+                    </select>
+                    <label>Choisissez votre Categorie</label>
+                </div>
+                <!--                    <div class="form-group">
+                                        <label class = "control-label">Ville</label>
+                                        <input class = "form-control" type="text" name="city" th:value="${annonce.city}"/>
+                                    </div>-->
+                <div class = "form-group">
+                    <select name="city">
+                        <option value="" disabled selected>Choisissez la Ville</option>
+                        <option value="1">Lognes</option>
+                        <option value="2">Pontault-Combault</option>
+                        <option value="3">Meaux</option>
+                    </select>
+                    <label>Choisissez votre Ville</label>
+                </div>
                 <button type="submit" class="btn btn-primary">Editer</button>
             </div>
             </form>

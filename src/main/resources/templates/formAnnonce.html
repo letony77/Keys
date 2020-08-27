@@ -29,6 +29,36 @@
                     <label class = "control-label">Description de l'annonce</label>
                     <input class = "form-control" type="text" name="description" th:value="${annonce.description}"/>
                 </div>
+<!--                    <div class="form-group">
+                        <label class = "control-label">Category</label>
+                        <input class = "form-control" type="text" name="category" th:value="${annonce.category}"/>
+                    </div>-->
+                    <div class = "form-group">
+                        <select name="category">
+                            <option value="" disabled selected>Choisissez la Categorie</option>
+                            <option value="1">Informatique</option>
+                            <option value="2">Vente</option>
+                            <option value="3">Restauration</option>
+                        </select>
+                        <label>Choisissez votre role</label>
+                    </div>
+<!--                    <div class="form-group">
+                        <label class = "control-label">Ville</label>
+                        <input class = "form-control" type="text" name="city" th:value="${annonce.city}"/>
+                    </div>-->
+                    <div class = "form-group">
+                        <select name="city">
+                            <option value="" disabled selected>Choisissez la Ville</option>
+                            <option value="1">Lognes</option>
+                            <option value="2">Pontault-Combault</option>
+                            <option value="3">Meaux</option>
+                        </select>
+                        <label>Choisissez votre ville</label>
+                    </div>
+                    <div class="form-group">
+                        <label class = "control-label">eMail de contact</label>
+                        <input class = "form-control" type="text" name="email_contact" th:value="${annonce.email_contact}"/>
+                    </div>
             <div>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </div>

@@ -24,7 +24,6 @@ private Long id;
     private boolean isActive = true;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-   // @JsonIgnore
     private List<Annonce> annonces;
 
  /*   @ManyToOne
